@@ -16,3 +16,5 @@ SAS® Programming 1: Essentials programındaki datasetler ve sashelp kütüphane
 ### 12. FORMAT İfadesi
 ### 13. PROC SORT
 ### 14. NODUPKEY Seçeneği
+
+and proc sql exercise about where and having statement. 
