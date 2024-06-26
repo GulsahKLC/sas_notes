@@ -58,3 +58,6 @@ libref=pvcas;
 proc casutil incaslib='pvcas';
 list files;
 quit;
+
+/*kütüphane tanımlamak için */
+libname pvbase base "/shared/home/gulsah.kilic@gazi.edu.tr/sasuser.viya/data/PGVYV2/activities";
