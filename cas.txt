@@ -1,0 +1,60 @@
+
+# SAS Viya'da geleneksel SAS Compute Server, SAS kodlarını çalıştırmak ve CAS sunucusuna istemci olarak hizmet
+ etmek için kullanılır. Peki CAS tam olarak nedir?
+
+CAS sunucusu, modern analitik teknikler kullanarak büyük veriyi ve kaynak yoğun programları işlemek üzere
+tasarlanmış yüksek performanslı bir paralel işlem ortamıdır. CAS ayrıca bellekte analitik motoru olarak
+çalışır. Veri, CAS sunucusunun belleğine yüklenir ve paralel işlem için kullanılır.
+Bu şekilde veri, bellekte birden çok okuma için kalabilir ve diskten belleğe yükleme (I/O) süresi azaltılabilir.
+
+Son olarak, CAS, kuruluşunuzdaki çeşitli veri kaynaklarına erişmek için sofistike veri bağlayıcıları kullanır.
+CAS, Amazon Redshift, SingleStore, Snowflake, Spark gibi popüler veri kaynakları için özel olarak tasarlanmış
+veri bağlayıcılarıyla entegre çalışabilir.
+  
+CAS sunucusu, genellikle bir denetleyici düğümü ve birkaç işçi düğümü olmak üzere birden fazla makinede
+ çalışacak şekilde yapılandırılır. Bu sunucuya bir istemci üzerinden erişilir; örneğin, SAS Studio 
+ kullanıldığında Compute Server, CAS'e istemci olarak hizmet eder.
+
+CAS'te verinin işlenmesi için, veri fiziksel depolama yerinden (örneğin, veritabanı, klasör yolu veya bulut)
+belleğe kopyalanır. Seri yüklemede, veri denetleyici düğüme gönderilir. Denetleyici düğümü veri bloklarını
+otomatik olarak işçi düğümlere dağıtır ve belleğe yükler. Ayrıca, CAS paralel yükleme yapabilir; bu durumda
+veri doğrudan her CAS işçisine yüklenir ve denetleyici düğümü atlanır. Birçok Viya veri bağlayıcısı paralel
+yükleme özelliğine sahiptir, bu da veri yükleme hızını radikal şekilde artırır.
+
+Veri bir kez belleğe yüklendikten sonra, aynı tabloya birden fazla kullanıcı ve işlem aynı anda erişebilir,
+ek I/O gerektirmez. Bu durum, veri ön yükleminin işlem hızını artırarak tüm kullanıcılar için verimlilik 
+sağlar.
+
+Denetleyici, istemciden gelen programları kabul eder ve kodları işçilere dağıtarak paralel işlem yapılmasını
+sağlar. İşçiler verinin farklı bölümlerinde eşzamanlı olarak aynı işlemleri yürütür. Denetleyici ilerlemeyi
+izler ve her işçi tarafından üretilen sonuç segmentlerini yeniden birleştirmeyi koordine eder.
+İstemci isteğiyle, sonuçları istemciye geri gönderir. Bellekte yapılan tablo değişiklikleri fiziksel veri
+kaynağında yansıtılmaz; fiziksel veri kaynağını güncellemek için bellekteki tablo açıkça kaydedilmelidir.
+
+CAS, birden fazla makinede dağıtılmış bir sunucuda çalışacak şekilde yapılandırılabilir, böylece büyük ölçekli
+paralel işlem (MPP) sağlar. Alternatif olarak, tek bir makine sunucusunda çalışacak şekilde
+yapılandırılabilir, bu durumda çoklu CPU veya iş parçacığından yararlanarak simetrik çok işlemli işlem (SMP)
+ mimarisi sağlanır.
+
+Her durumda da yazdığınız kod aynı kalır ve CAS'teki paralel işleme hızlı sonuçlar sağlar.
+
+CAS sunucusunda belirli bir caslib içindeki dosyaları veya tabloları listelemek için kullanılır.
+
+PROC CASUTIL <INCASLIB="caslib-name">;
+LIST FILES|TABLES <option(s)>;
+QUIT;
+
+CAS sunucusunda yeni bir caslib tanımlamak için kullanılır.
+
+CASLIB mycaslib PATH="/sasdata/" LIBREF=mylib;
+caslib pvcas path="&path/data" libref=pvcas;
+
+
+CAS sunucusunda belirli bir veri kaynağına erişim sağlamak
+ve bu kaynaktaki verileri görüntülemek içinyapılan temel adımlardır.
+
+caslib pvcas path="/home/student/Courses/PGVY/data"
+libref=pvcas;
+proc casutil incaslib='pvcas';
+list files;
+quit;
