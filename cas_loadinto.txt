@@ -1,0 +1,31 @@
+/* Aktif CASLIB ile promote ve replace seçenekleri */
+proc casutil;
+    load casdata="file-name.csv" casout="sales" promote;
+run;
+
+/* Pasif CASLIB ile promote ve replace seçenekleri */
+proc casutil;
+    load casdata="file-name.csv" incaslib="casuser" casout="sales" outcaslib="casuser" promote;
+run;
+7
+
+
+
+/* pvbase adında bir caslibinin yolunu al */
+caslib pvbase path="/shared/home/gulsah.kilic@gazi.edu.tr/sasuser.viya/data";
+
+
+/* casutil procedure ile incaslibi belirt ve içindekileri listele*/
+proc casutil incaslib='pvbase';
+    list files;
+quit;
+
+/* loading data ın-memory tavles */
+
+proc casutıl ;
+load casdata ="file-name"
+ıncaslib="caslib"
+casout=""
+outcaslib= ""
+promote or replace ;
+quit;
