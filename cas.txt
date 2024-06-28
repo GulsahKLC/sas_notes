@@ -63,14 +63,5 @@ quit;
 libname pvbase base "/shared/home/gulsah.kilic@gazi.edu.tr/sasuser.viya/data/PGVYV2/activities";
 
 
-/* Aktif CASLIB ile promote ve replace seçenekleri */
-proc casutil;
-    load casdata="file-name.csv" casout="sales" promote;
-run;
-
-/* Pasif CASLIB ile promote ve replace seçenekleri */
-proc casutil;
-    load casdata="file-name.csv" incaslib="casuser" casout="sales" outcaslib="casuser" promote;
-run;
 
 
