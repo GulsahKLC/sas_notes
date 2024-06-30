@@ -16,7 +16,6 @@ SAS® Programming 1: Essentials programındaki datasetler ve sashelp kütüphane
 ### 12. FORMAT İfadesi
 ### 13. PROC SORT
 ### 14. NODUPKEY Seçeneği
-<<<<<<< HEAD
 
 and proc sql exercise about where and having statement. 
 =======
@@ -36,7 +35,7 @@ Bu proje, SAS kullanarak veri işleme ve analiz tekniklerini göstermektedir. Pr
 ### 8. SAS'ta SQL Kullanımı
 ### 9. Analiz ve Raporlama
 ### 10. Excel Dosyasına Veri Aktarma]
-
+=======
 ## İçindekiler: Advanced Techniques
 ### Data Step Review
 ### Lesson 2: Using Advanced Functions
