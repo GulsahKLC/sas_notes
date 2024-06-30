@@ -270,6 +270,88 @@ data work.ValidPhoneNumbers;
         LocParen = prxmatch('/\(([2-9]\d{2})\)\s*-([2-9]\d{2})-(\d{4})/', strip(Phone));
     run;
     
+/* PRXCHANGE (perl-regular-expression, times, source)
+ SAS'ta düzenli ifadeler kullanarak bir metin içinde belirli bir deseni arar ve bulduğu bu deseni başka bir metinle değiştirir.
+
+'s/ INT( |L |L. )/ INTERNATIONAL /i'
+s: Bu, düzenli ifade işleminin bir değiştirme (substitution) işlemi olduğunu belirtir.
+/: Bu, düzenli ifadenin başlangıç ve bitişini belirleyen sınırlayıcıdır (delimiter).
+Arama Deseni:
+INT: Boşlukla başlayan ve ardından büyük harflerle "INT" gelen bir desen arar.
+(: Bir grubu başlatır.
+|: Boşlukla devam eden bir deseni arar.
+L : "INT" den sonra bir boşluk ve "L" harfi arar.
+|: Veya operatörü; alternatif desenleri belirtir.
+L.: "INT" den sonra bir boşluk, "L" harfi ve bir nokta arar.
+): Grubu kapatır.
+Değiştirme Deseni:
+/: Orta sınırlayıcı, arama desenini değiştirme deseninden ayırır.
+INTERNATIONAL: Boşlukla başlayan, ardından "INTERNATIONAL" kelimesi ve sonunda tekrar boşluk olan bir desenle değiştirir.
+/: Bitiş sınırlayıcı, düzenli ifadenin sonunu belirtir.
+i: Harflerin büyük/küçük harf duyarlılığını göz ardı eder (case-insensitive arama yapar).
+
+
+'s/(-?\d+\.\d*)(@)(-?\d+\.\d*)/$3$2$1/' 
+
+$3$2$1 bunlar buffer ters yazarsak da bunu 123 sırası ile değil de 321 sırası ile getiririz.
+*/
+
+
+data work.tornadoEF;
+    set pg3.tornado_2017narrative;
+    length Narrative_New $ 4242;
+    Loc=prxmatch('/EF-/',Narrative);       /* prxmatch fonksiyonu, Narrative değişkeninde 'EF-' desenini arar ve bu deseni bulan konumun indeksini Loc değişkenine atar. */
+    /*Eğer 'EF-' deseni bulunmazsa, Loc değişkeni sıfır değerini alır.*/
+	Narrative_New=prxchange('s/EF-/EF/',-1,Narrative);  /* prxchange fonksiyonu, Narrative değişkenindeki tüm 'EF-' desenlerini 'EF' ile değiştirir ve sonucu Narrative_New değişkenine yazar.*/
+run;
+
+title 'US Tornados';
+proc print data=work.tornadoEF;
+run;
+title;  
+
+/* Using the PRXMATCH and PRXCHANGE Functions*/ 
+data work.NationalPreserves;
+    set pg3.np_acres;
+    Position=prxmatch('/N PRES\s|N PRESERVE\s|NPRES\s|NPRE\s/',ParkName);
+    if Position ne 0;
+run;
+
+title 'National Preserves (NPRE)';
+proc print data=work.NationalPreserves;
+run;
+title;
+
+
+data work.BaseballPlayers; 
+    set sashelp.baseball(keep=Name);  
+    FirstLastName=prxchange('s/(\w+\D*\w*)(, )(\w+\s*\w*\b)/$3 $1/',-1,Name); 
+run; 
+/* -1: Tüm eşleşmelerin değiştirilmesini belirtir.*/ 
+
+title 'Names of Baseball Players'; 
+proc print data=work.BaseballPlayers; 
+run; 
+title;
+
+/*
+\w: Kelime karakterleriyle eşleşir. Bu karakterler şunlardır:
+A-Z (büyük harfler)
+a-z (küçük harfler)
+0-9 (rakamlar)
+Alt çizgi _
+
+
+\w+ deseni, aşağıdaki gibi metinlerle eşleşir:
+hello
+world123
+_underscore
+A1B2C3
+*/
+
+/* Lesson 3: Defining and Processing Arrays*/
+/* Defining and Referencing One-Dimensional Arrays*/
+
 
     
     
