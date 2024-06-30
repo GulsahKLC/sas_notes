@@ -26,17 +26,33 @@ Bu proje, SAS kullanarak veri işleme ve analiz tekniklerini göstermektedir. Pr
 
 ## İçindekiler: app2 
 
-### 1. [Veri Setini Hazırlama](#veri-setini-hazırlama)
-### 2. [Veri Okuma ve Filtreleme](#veri-okuma-ve-filtreleme)
-### 3. [Data Step Prosedürü](#data-step-prosedürü)
-### 4. [If-Then ve If-Then-Do Yapıları](#if-then-ve-if-then-do-yapıları)
-### 5. [Veri Manipülasyonu ve Yeni Kolonlar Oluşturma](#veri-manipülasyonu-ve-yeni-kolonlar-oluşturma)
-### 6. [Karakter Fonksiyonları Kullanma](#karakter-fonksiyonları-kullanma)
-### 7. [Tarih Fonksiyonları Kullanma](#tarih-fonksiyonları-kullanma)
-### 8. [SAS'ta SQL Kullanımı](#sas'ta-sql-kullanımı)
-### 9. [Analiz ve Raporlama](#analiz-ve-raporlama)
-### 10. [Excel Dosyasına Veri Aktarma](#excel-dosyasına-veri-aktarma)
+### 1. Veri Setini Hazırlama
+### 2. Veri Okuma ve Filtreleme
+### 3. Data Step Prosedürü
+### 4. If-Then ve If-Then-Do Yapıları
+### 5. Veri Manipülasyonu ve Yeni Kolonlar Oluşturma
+### 6. Karakter Fonksiyonları Kullanma
+### 7. Tarih Fonksiyonları Kullanma
+### 8. SAS'ta SQL Kullanımı
+### 9. Analiz ve Raporlama
+### 10. Excel Dosyasına Veri Aktarma]
 
+## İçindekiler: Advanced Techniques
+### Data Step Review
+### Lesson 2: Using Advanced Functions
+- Using a Variety of Advanced Functions
+- Performing Pattern Matching with Perl Regular Expressions
+### Lesson 3: Defining and Processing Arrays
+- Defining and Referencing One-Dimensional Arrays
+- Doing More with One-Dimensional Arrays
+- Defining and Referencing Two-Dimensional Arrays
+### Lesson 4: Defining and Processing Hash Objects
+- Declaring Hash Objects
+- Defining Hash Objects
+- Finding Key Values in a Hash Object
+- Writing a Hash Object to a Table
+- Using Hash Iterator Objects
+### Lesson 5: Using Utility Procedures
+- Creating Picture Formats with the FORMAT Procedure
+- Creating Functions with the FCMP Procedure
 
-Her bir bölümün detaylı açıklamaları ve kod örnekleri için ilgili SAS dosyalarına göz atabilirsiniz.
->>>>>>> cac3db32b233155b51ca2b1eed75e683fa84f2e5
