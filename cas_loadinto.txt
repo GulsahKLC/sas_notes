@@ -1,3 +1,18 @@
+cas mySession;
+
+/* Define the path to the Excel file */
+%let filepath = /shared/home/gulsah.kilic@gazi.edu.tr/sasuser.viya/data/PGVYV2/data/customers.xlsx;
+
+/* Load the Excel file into CAS */
+proc casutil;
+    load file="&filepath."
+        outcaslib="casuser"
+        casout="customer"
+        importoptions=(filetype="excel");
+quit;
+
+libname casuser cas caslib="casuser";
+
 /* Aktif CASLIB ile promote ve replace seçenekleri */
 proc casutil;
     load casdata="file-name.csv" casout="sales" promote;
@@ -29,3 +44,55 @@ casout=""
 outcaslib= ""
 promote or replace ;
 quit;
+
+
+CASUSER'a Veriyi Alma ve Promote Etme:
+
+cas mySession;
+
+proc casutil;
+    load file="/shared/home/gulsah.kilic@gazi.edu.tr/sasuser.viya/data/PGVYV2/data/customers.xlsx"
+        outcaslib="casuser"
+        casout="customer"
+        importoptions=(filetype="excel");
+quit;
+
+proc casutil;
+    promote casdata="customer" incaslib="casuser"
+        outcaslib="casuser" casout="customer_promoted";
+quit;
+
+
+/* Saving a SASHDAT File in a Caslib */
+PROC CASUTIL;
+SAVECASDATA="file-name" <INCASLIB="caslib"> <OUTCASLIB="caslib"> <CASOUT=“target-table-name" 
+<option(s)>;QUIT;
+
+SASHDAT Dosyalarının Avantajları
+Bellek içi verilerin kalıcı bir kopyasını depolar.
+Hızlı paralel yüklemeyi destekler.
+Veriler, CAS'a yeniden yüklenmek üzere optimize edilmiştir.
+
+
+
+/* Accessing DBMS Data */ 
+CASLIB caslib-name DATASOURCE= (SRCTYPE="oracle",
+PATH="oracleServiceName", SCHEMA="oracleSchemaName",
+UID="oracleUserID", PWD="oraclePassword" <,...>);
+
+caslib oracas datasource=(srctype="oracle", path="orcl",
+ schema="sales", uid="student", pwd=XXXXXXXXXXX);
+
+ proc casutil;
+    droptable casdata="orders" incaslib="casuser" quiet; 
+    load casdata="orders_hd.sashdat" incaslib="casuser"  
+         outcaslib="casuser" casout="orders" promote; 
+quit; 
+
+data casuser.shipping;
+    set pvbase.orders end=eof;
+    where OrderType ne 1;
+    DaysToDeliver=Delivery_Date-Order_Date;
+    drop xy: Discount Employee_ID;
+    if eof then put _threadid_=   _N_=;
+run;
