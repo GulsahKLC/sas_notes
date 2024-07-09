@@ -422,6 +422,43 @@ run;
 %let myVar = Hello, World;
 %put &myVar;
 Yukarıdaki örnekte, %let myVar = Hello, World; ifadesi myVar isimli bir makro değişken oluşturur ve ona "Hello, World" değerini atar. %put &myVar; ifadesi ise bu makro değişkenin değerini log'a yazar.*/
+/*
+SAS'ta %local makrosu, makro değişkenlerin yerel (local) kapsamda tanımlanmasını sağlar. Bu, bir makro içinde tanımlanan değişkenlerin sadece o makro içinde geçerli olmasını ve o makro tamamlandığında otomatik olarak bellekten silinmesini sağlar.
+
+%local Makrosunun Kullanımı
+Yerel Değişkenler Tanımlamak: %local makrosu, değişkenin sadece tanımlandığı makro içinde geçerli olmasını sağlar. Böylece, aynı isimdeki global değişkenlerle çakışma (conflict) önlenir.
+
+Bellek Yönetimi: Makro tamamlandığında yerel değişkenler bellekten otomatik olarak silinir, bu da bellek yönetimini kolaylaştırır.
+
+Örnek Kullanım
+
+%macro example;
+   %local localVar;
+   %let localVar = This is a local variable;
+   %put &localVar;
+%mend example;
+
+%example;
+Yukarıdaki örnekte:
+
+%macro example; ile example isimli bir makro tanımlanır.
+%local localVar; ile localVar isimli bir yerel değişken tanımlanır.
+%let localVar = This is a local variable; ifadesi ile localVar değişkenine değer atanır.
+%put &localVar; ifadesi ile localVar değişkeninin değeri log'a yazdırılır.
+Makro tamamlandığında, localVar değişkeni bellekten silinir.
+Yerel ve Global Değişken Farkı
+Yerel (local) ve global değişkenler arasındaki farkları anlamak önemlidir:
+
+Global Değişkenler: %global makrosu ile tanımlanır ve tüm SAS oturumu boyunca geçerlidir. Başka makrolar içinde de kullanılabilir.
 
 
+%global globalVar;
+%let globalVar = This is a global variable;
+Yerel Değişkenler: %local makrosu ile tanımlanır ve sadece tanımlandığı makro içinde geçerlidir. Makro tamamlandığında bellekten silinir.
+
+%macro example;
+   %local localVar;
+   %let localVar = This is a local variable;
+%mend example;
+*/
 
