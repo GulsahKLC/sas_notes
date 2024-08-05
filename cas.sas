@@ -28,27 +28,71 @@ of tools that you need for your job and then seamlessly share and collaborate wi
 
 Lesson 2: Running SAS Code on the SAS Compute Server
 -- Running SAS Code on the Compute Server
+*/
+*********************************************;
+* Demo: Running a SAS Program in SAS Studio *;
+*********************************************;
 
+%let homedir=%sysget(HOME);
+%let path=&homedir/Courses/PGVY01;
+
+libname pvbase "&path/data";
+
+data profit;
+    set pvbase.orders;
+    Profit=RetailPrice-(Cost*Quantity);
+    format Profit dollar8.;
+run;
+
+ods excel file="&path/output/customer_report.xlsx";
+title "Profit per Order";
+proc means data=profit sum mean;
+    var Profit;
+    class Continent;
+run;
+
+proc sgplot data=profit;
+    hbar Continent / response=Profit stat=sum 
+                     categoryorder=respdesc;
+run;
+ods excel close;
+
+/*
 Lesson 3: SAS Cloud Analytic Services (CAS) Overview
 -- CAS Fundamentals
 -- Understanding Caslibs
+*/
+caslib _all_ assign;  /* all existing caslib */
 
+libname casuser cas caslibs=casuser;
+
+proc means data=casuser.orders;
+run;
+/*
 Lesson 4: Managing Data in SAS Cloud Analytic Services
 -- Loading Data to In-Memory Tables
 -- Accessing DBMS Data
 -- Saving and Dropping In-Memory Tables
+*/
 
+/*
 Lesson 5: Modifying DATA Step Code to Run in SAS Cloud Analytic Services (CAS)
 -- Modifying DATA Step Code to Run in SAS Cloud Analytic Services (CAS)
+*/
 
+/*
 Lesson 6: Running SAS Procedures in SAS Cloud Analytic Services (CAS)
 -- Introduction to SAS Procedures in SAS Viya
 -- Running CAS-Enabled SAS Procedures
+*/
 
+/*
 Lesson 7: Modifying SQL Code to Run in SAS Cloud Analytic Services (CAS)
 -- Modifying SQL Code to Run in CAS
 -- Column Data Types in CAS
+*/
 
+/*
 Lesson 8: Using the Native CAS Language (CASL)
 -- Introduction to CASL
 -- Using CAS Actions (Optional)
