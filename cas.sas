@@ -97,4 +97,15 @@ Lesson 8: Using the Native CAS Language (CASL)
 -- Introduction to CASL
 -- Using CAS Actions (Optional)
 */
-
+/* load an excel file to a table*/
+proc cas;
+    table.addCaslib / 
+        name="pvcas" path="&path/data";
+    table.loadTable / 
+        path="customers.xlsx" caslib="pvcas",
+        casout={caslib="casuser", name="custFrance", 
+                replace="true"},
+	    where="Country='France'";
+    table.tableDetails / 
+        caslib="casuser", name="custFrance";
+quit;
