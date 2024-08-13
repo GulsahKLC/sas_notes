@@ -74,7 +74,41 @@ Lesson 4: Managing Data in SAS Cloud Analytic Services
 -- Accessing DBMS Data
 -- Saving and Dropping In-Memory Tables
 */
+/* Binds all CAS librefs and default CASLIBs to your SAS client */
+caslib _all_ assign;
 
+/* Two ways to save a CAS table as a SAS7BDAT */
+proc cas;
+   table.save / caslib='sas7bdat'
+   table={name='baseball', caslib='casuser'},
+   name='baseball.sas7bdat'
+   replace=True;
+quit;
+
+/*How to save a CAS table as a compress sas7bdat */
+proc casutil;
+   save casdata='baseball' incaslib='casuser'
+   casout='baseball.sas7bdat' outcaslib='sas7bdat'
+   exportoptions=(filetype='basesas', compress='yes' debug='dmsglvli') 
+   replace;
+quit;
+
+
+/* Binds all CAS librefs and default CASLIBs to your SAS client */
+caslib _all_ assign;
+
+/* Two ways to save a CAS table to SASHDAT */
+proc cas;
+   table.save / caslib='sashdat'
+   table={name='baseball', caslib='casuser'},
+   name='baseball.sashdat'
+   replace=True;
+quit;
+
+proc casutil;
+   save casdata='baseball' incaslib='casuser'
+   casout='baseball.sashdat' outcaslib='sashdat' replace;
+quit;
 /*
 Lesson 5: Modifying DATA Step Code to Run in SAS Cloud Analytic Services (CAS)
 -- Modifying DATA Step Code to Run in SAS Cloud Analytic Services (CAS)
