@@ -109,28 +109,7 @@ proc casutil;
    save casdata='baseball' incaslib='casuser'
    casout='baseball.sashdat' outcaslib='sashdat' replace;
 quit;
-/*
-Lesson 5: Modifying DATA Step Code to Run in SAS Cloud Analytic Services (CAS)
--- Modifying DATA Step Code to Run in SAS Cloud Analytic Services (CAS)
-*/
 
-/*
-Lesson 6: Running SAS Procedures in SAS Cloud Analytic Services (CAS)
--- Introduction to SAS Procedures in SAS Viya
--- Running CAS-Enabled SAS Procedures
-*/
-
-/*
-Lesson 7: Modifying SQL Code to Run in SAS Cloud Analytic Services (CAS)
--- Modifying SQL Code to Run in CAS
--- Column Data Types in CAS
-*/
-
-/*
-Lesson 8: Using the Native CAS Language (CASL)
--- Introduction to CASL
--- Using CAS Actions (Optional)
-*/
 /* load an excel file to a table*/
 proc cas;
     table.addCaslib / 
@@ -143,3 +122,5 @@ proc cas;
     table.tableDetails / 
         caslib="casuser", name="custFrance";
 quit;
+
+
