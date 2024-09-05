@@ -102,3 +102,6 @@ The CAS (Cloud Analytic Services) library in SAS is used for several important r
 7. Data Management: CAS libraries facilitate efficient data management, including data loading, transformation, and storage. This helps in maintaining data integrity and optimizing data workflows.
 
 Overall, using a CAS library helps in managing and analyzing large-scale data more effectively and efficiently, providing a strong foundation for advanced analytics and business intelligence.*/
+
+
+/* Model */
