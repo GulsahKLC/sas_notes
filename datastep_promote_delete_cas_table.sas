@@ -1,4 +1,4 @@
-as;
+cas;
 caslib _all_ assign;
 
 /* CAS option that display CAS metrics i.e. real time, cpu, memory in the SAS LOG */
